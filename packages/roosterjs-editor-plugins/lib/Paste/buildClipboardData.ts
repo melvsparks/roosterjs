@@ -1,6 +1,6 @@
 import { ClipboardItems, ContentPosition } from 'roosterjs-editor-types';
-import { Editor } from 'roosterjs-editor-core';
 import { extractClipboardEvent, fromHtml } from 'roosterjs-editor-dom';
+import { IEditor } from 'roosterjs-editor-core';
 
 const CONTAINER_HTML =
     '<div contenteditable style="width: 1px; height: 1px; overflow: hidden; position: fixed; top: 0; left; 0; -webkit-user-select: text"></div>';
@@ -13,7 +13,7 @@ const CONTAINER_HTML =
  */
 export default function buildClipboardData(
     event: ClipboardEvent,
-    editor: Editor,
+    editor: IEditor,
     callback: (items: ClipboardItems) => void
 ) {
     extractClipboardEvent(event, items => {
@@ -28,7 +28,7 @@ export default function buildClipboardData(
     });
 }
 
-function retrieveHtmlViaTempDiv(editor: Editor, callback: (html: string) => void) {
+function retrieveHtmlViaTempDiv(editor: IEditor, callback: (html: string) => void) {
     // cache original selection range in editor
     let originalSelectionRange = editor.getSelectionRange();
     let tempDiv = getTempDivForPaste(editor);
@@ -43,7 +43,7 @@ function retrieveHtmlViaTempDiv(editor: Editor, callback: (html: string) => void
     });
 }
 
-function getTempDivForPaste(editor: Editor): HTMLElement {
+function getTempDivForPaste(editor: IEditor): HTMLElement {
     let tempDiv = editor.getCustomData(
         'PasteDiv',
         () => {

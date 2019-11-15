@@ -1,7 +1,7 @@
 import ContentEditFeatures, { getDefaultContentEditFeatures } from './ContentEditFeatures';
 import { AutoLink, UnlinkWhenBackspaceAfterLink } from './features/autoLinkFeatures';
 import { DefaultShortcut } from './features/shortcutFeatures';
-import { Editor, EditorPlugin, GenericContentEditFeature } from 'roosterjs-editor-core';
+import { EditorPlugin, GenericContentEditFeature, IEditor } from 'roosterjs-editor-core';
 import { InsertLineBeforeStructuredNodeFeature } from './features/insertLineBeforeStructuredNodeFeature';
 import { NoCycleCursorMove } from './features/noCycleCursorMove';
 import { PluginEvent } from 'roosterjs-editor-types';
@@ -34,7 +34,7 @@ import {
  * 8. Manage list style
  */
 export default class ContentEdit implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
 
     /**
      * Create instance of ContentEdit plugin
@@ -53,7 +53,7 @@ export default class ContentEdit implements EditorPlugin {
      * Initialize this plugin
      * @param editor The editor instance
      */
-    public initialize(editor: Editor): void {
+    public initialize(editor: IEditor): void {
         this.editor = editor;
         this.getFilteredFeatures().forEach(feature => this.editor.addContentEditFeature(feature));
     }

@@ -1,4 +1,4 @@
-import Editor from '../editor/Editor';
+import IEditor from '../interfaces/IEditor';
 import { ChangeSource, PluginEvent, PluginKeyboardEvent } from 'roosterjs-editor-types';
 
 /**
@@ -34,8 +34,8 @@ export const enum Keys {
  */
 export interface GenericContentEditFeature<TEvent extends PluginEvent> {
     keys: number[];
-    shouldHandleEvent: (event: TEvent, editor: Editor, ctrlOrMeta: boolean) => any;
-    handleEvent: (event: TEvent, editor: Editor) => ChangeSource | void;
+    shouldHandleEvent: (event: TEvent, editor: IEditor, ctrlOrMeta: boolean) => any;
+    handleEvent: (event: TEvent, editor: IEditor) => ChangeSource | void;
     allowFunctionKeys?: boolean;
 }
 

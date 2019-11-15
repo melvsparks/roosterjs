@@ -22,6 +22,7 @@ export {
 } from './interfaces/EditorCore';
 export { default as EditorOptions } from './interfaces/EditorOptions';
 export { default as EditorPlugin } from './interfaces/EditorPlugin';
+export { default as IEditor } from './interfaces/IEditor';
 export { default as UndoService } from './interfaces/UndoService';
 export { default as UndoSnapshotsService } from './interfaces/UndoSnapshotsService';
 

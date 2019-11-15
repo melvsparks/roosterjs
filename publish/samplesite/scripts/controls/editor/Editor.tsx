@@ -6,6 +6,7 @@ import { ImageResize } from 'roosterjs-plugin-image-resize';
 import { PickerPlugin } from 'roosterjs-plugin-picker';
 import {
     Editor as RoosterJsEditor,
+    IEditor,
     EditorOptions,
     EditorPlugin,
     UndoService,
@@ -32,12 +33,12 @@ export interface EditorProps {
     undo?: UndoService;
 }
 
-let editorInstance: RoosterJsEditor | null = null;
+let editorInstance: IEditor | null = null;
 let editorInstanceToggleablePlugins: EditorInstanceToggleablePlugins | null = null;
 
 export default class Editor extends React.Component<EditorProps, BuildInPluginState> {
     private contentDiv: HTMLDivElement;
-    private editor: RoosterJsEditor;
+    private editor: IEditor;
 
     constructor(props: EditorProps) {
         super(props);

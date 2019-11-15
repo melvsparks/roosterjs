@@ -1,8 +1,8 @@
-import { Editor } from 'roosterjs-editor-core';
 import { FormatState } from 'roosterjs-editor-types';
+import { IEditor } from 'roosterjs-editor-core';
 
 export type DropDownRenderer = (
-    editor: Editor,
+    editor: IEditor,
     onDismiss: () => void,
     key: string,
     value: string
@@ -11,8 +11,8 @@ export type DropDownRenderer = (
 export default interface RibbonButtonType {
     title: string;
     image: string;
-    onClick: (editor: Editor, value: string) => void;
-    checked?: (format: FormatState, editor: Editor) => boolean;
+    onClick: (editor: IEditor, value: string) => void;
+    checked?: (format: FormatState, editor: IEditor) => boolean;
     dropDownItems?: { [key: string]: string };
     dropDownRenderer?: DropDownRenderer;
     preserveOnClickAway?: boolean;

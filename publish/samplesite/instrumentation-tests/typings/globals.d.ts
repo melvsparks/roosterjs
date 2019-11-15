@@ -1,6 +1,6 @@
 import { EditorInstanceToggleablePlugins } from '../../scripts/controls/editor/EditorInstanceToggleablePlugins';
+import { IEditor } from 'roosterjs-editor-core';
 // import Plugins from '../../scripts/controls/plugins';
-import { Editor } from 'roosterjs-editor-core';
 
 declare global {
     interface Window {
@@ -11,6 +11,6 @@ declare global {
         /**
          * The editor instance for the sample site.
          */
-        globalRoosterEditor: Editor;
+        globalRoosterEditor: IEditor;
     }
 }

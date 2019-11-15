@@ -2,7 +2,7 @@ import { setIndentation, toggleBullet, toggleNumbering } from 'roosterjs-editor-
 import {
     cacheGetContentSearcher,
     cacheGetElementAtCursor,
-    Editor,
+    IEditor,
     ContentEditFeature,
     GenericContentEditFeature,
     Keys,
@@ -179,7 +179,7 @@ export function getSmartOrderedList(
     };
 }
 
-function toggleListAndPreventDefault(event: PluginKeyboardEvent, editor: Editor) {
+function toggleListAndPreventDefault(event: PluginKeyboardEvent, editor: IEditor) {
     let listInfo = cacheGetListElement(event, editor);
     if (listInfo) {
         let listElement = listInfo[0];
@@ -194,7 +194,7 @@ function toggleListAndPreventDefault(event: PluginKeyboardEvent, editor: Editor)
     }
 }
 
-function cacheGetListElement(event: PluginKeyboardEvent, editor: Editor) {
+function cacheGetListElement(event: PluginKeyboardEvent, editor: IEditor) {
     let li = cacheGetElementAtCursor(editor, event, 'LI,TABLE');
     let listElement = li && getTagOfNode(li) == 'LI' && editor.getElementAtCursor('UL,OL', li);
     return listElement ? [listElement, li] : null;

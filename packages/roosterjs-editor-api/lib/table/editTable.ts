@@ -1,5 +1,5 @@
 import { ChangeSource, TableOperation } from 'roosterjs-editor-types';
-import { Editor } from 'roosterjs-editor-core';
+import { IEditor } from 'roosterjs-editor-core';
 import { VTable } from 'roosterjs-editor-dom';
 
 /**
@@ -7,7 +7,7 @@ import { VTable } from 'roosterjs-editor-dom';
  * @param editor The editor instance
  * @param operation Table operation
  */
-export default function editTable(editor: Editor, operation: TableOperation) {
+export default function editTable(editor: IEditor, operation: TableOperation) {
     let td = editor.getElementAtCursor('TD,TH') as HTMLTableCellElement;
     if (td) {
         editor.addUndoSnapshot((start, end) => {

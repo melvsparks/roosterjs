@@ -1,7 +1,7 @@
 import buildClipboardData from './buildClipboardData';
 import fragmentHandler from './fragmentHandler';
 import textToHtml from './textToHtml';
-import { Editor, EditorPlugin } from 'roosterjs-editor-core';
+import { EditorPlugin, IEditor } from 'roosterjs-editor-core';
 import { getFormatState } from 'roosterjs-editor-api';
 import { insertImage } from 'roosterjs-editor-api';
 import {
@@ -31,7 +31,7 @@ import {
  * Paste plugin, handles onPaste event and paste content into editor
  */
 export default class Paste implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
     private pasteDisposer: () => void;
     private sanitizer: HtmlSanitizer;
 
@@ -57,7 +57,7 @@ export default class Paste implements EditorPlugin {
      * Initialize this plugin. This should only be called from Editor
      * @param editor Editor instance
      */
-    public initialize(editor: Editor) {
+    public initialize(editor: IEditor) {
         this.editor = editor;
         this.pasteDisposer = editor.addDomEventHandler('paste', this.onPaste);
     }
@@ -129,7 +129,10 @@ export default class Paste implements EditorPlugin {
 
             for (let node of nodes) {
                 if (mergeCurrentFormat) {
-                    this.applyToElements(node, this.applyFormatting(clipboardData.originalFormat, this.editor.isDarkMode()));
+                    this.applyToElements(
+                        node,
+                        this.applyFormatting(clipboardData.originalFormat, this.editor.isDarkMode())
+                    );
                 }
                 fragment.appendChild(node);
             }
@@ -179,9 +182,11 @@ export default class Paste implements EditorPlugin {
         }, ChangeSource.Paste);
     }
 
-    private applyFormatting = (format: DefaultFormat, isDarkMode: boolean) => (element: HTMLElement) => {
+    private applyFormatting = (format: DefaultFormat, isDarkMode: boolean) => (
+        element: HTMLElement
+    ) => {
         applyFormat(element, format, isDarkMode);
-    }
+    };
 
     private applyToElements(node: Node, elementTransform: (element: HTMLElement) => void) {
         let leaf = getFirstLeafNode(node);
@@ -206,14 +211,14 @@ export default class Paste implements EditorPlugin {
         let format = getFormatState(this.editor);
         return format
             ? {
-                fontFamily: format.fontName,
-                fontSize: format.fontSize,
-                textColor: format.textColor,
-                backgroundColor: format.backgroundColor,
-                bold: format.isBold,
-                italic: format.isItalic,
-                underline: format.isUnderline,
-            }
+                  fontFamily: format.fontName,
+                  fontSize: format.fontSize,
+                  textColor: format.textColor,
+                  backgroundColor: format.backgroundColor,
+                  bold: format.isBold,
+                  italic: format.isItalic,
+                  underline: format.isUnderline,
+              }
             : {};
     }
 

@@ -1,5 +1,5 @@
 import cacheGetEventData from './cacheGetEventData';
-import Editor from '../editor/Editor';
+import IEditor from '../interfaces/IEditor';
 import { PluginEvent } from 'roosterjs-editor-types';
 
 const CACHE_KEY_PREFIX = 'GET_ELEMENT_AT_CURSOR_';
@@ -14,7 +14,7 @@ const CACHE_KEY_PREFIX = 'GET_ELEMENT_AT_CURSOR_';
  * @returns The element at cursor or the nearest ancestor with the tag name is specified
  */
 export default function cacheGetElementAtCursor(
-    editor: Editor,
+    editor: IEditor,
     event: PluginEvent,
     selector: string
 ): HTMLElement {

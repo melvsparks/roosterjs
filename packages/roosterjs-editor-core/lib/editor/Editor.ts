@@ -3,6 +3,7 @@ import createEditorCore from './createEditorCore';
 import EditorCore from '../interfaces/EditorCore';
 import EditorOptions from '../interfaces/EditorOptions';
 import getColorNormalizedContent from '../darkMode/getColorNormalizedContent';
+import IEditor from '../interfaces/IEditor';
 import mapPluginEvents from './mapPluginEvents';
 import { calculateDefaultFormat } from '../coreAPI/calculateDefaultFormat';
 import { convertContentToDarkMode } from '../darkMode/convertContentToDarkMode';
@@ -49,7 +50,7 @@ import {
 /**
  * RoosterJs core editor class
  */
-export default class Editor {
+export default class Editor implements IEditor {
     private core: EditorCore;
     private eventDisposers: (() => void)[];
     private contenteditableChanged: boolean;
@@ -226,71 +227,9 @@ export default class Editor {
         return getBlockElementAtNode(this.core.contentDiv, node);
     }
 
-    /**
-     * Check if the node falls in the editor content
-     * @param node The node to check
-     * @returns True if the given node is in editor content, otherwise false
-     */
-    public contains(node: Node): boolean;
-
-    /**
-     * Check if the range falls in the editor content
-     * @param range The range to check
-     * @returns True if the given range is in editor content, otherwise false
-     */
-    public contains(range: Range): boolean;
-
     public contains(arg: Node | Range): boolean {
         return contains(this.core.contentDiv, <Node>arg);
     }
-
-    /**
-     * Query HTML elements in editor by tag name
-     * @param tag Tag name of the element to query
-     * @param forEachCallback An optional callback to be invoked on each element in query result
-     * @returns HTML Element array of the query result
-     */
-    public queryElements<T extends keyof HTMLElementTagNameMap>(
-        tag: T,
-        forEachCallback?: (node: HTMLElementTagNameMap[T]) => any
-    ): HTMLElementTagNameMap[T][];
-
-    /**
-     * Query HTML elements in editor by a selector string
-     * @param selector Selector string to query
-     * @param forEachCallback An optional callback to be invoked on each node in query result
-     * @returns HTML Element array of the query result
-     */
-    public queryElements<T extends HTMLElement = HTMLElement>(
-        selector: string,
-        forEachCallback?: (node: T) => any
-    ): T[];
-
-    /**
-     * Query HTML elements with the given scope by tag name
-     * @param tag Tag name of the element to query
-     * @param scope The scope of the query, default value is QueryScope.Body
-     * @param forEachCallback An optional callback to be invoked on each element in query result
-     * @returns HTML Element list of the query result
-     */
-    public queryElements<T extends keyof HTMLElementTagNameMap>(
-        tag: T,
-        scope: QueryScope,
-        forEachCallback?: (node: HTMLElementTagNameMap[T]) => any
-    ): HTMLElementTagNameMap[T][];
-
-    /**
-     * Query HTML elements with the given scope by a selector string
-     * @param selector Selector string to query
-     * @param scope The scope of the query, default value is QueryScope.Body
-     * @param forEachCallback An optional callback to be invoked on each element in query result
-     * @returns HTML Element array of the query result
-     */
-    public queryElements<T extends HTMLElement = HTMLElement>(
-        selector: string,
-        scope: QueryScope,
-        forEachCallback?: (node: T) => any
-    ): T[];
 
     public queryElements(
         selector: string,
@@ -460,58 +399,6 @@ export default class Editor {
         this.core.api.focus(this.core);
     }
 
-    /**
-     * Select content by range
-     * @param range The range to select
-     * @returns True if content is selected, otherwise false
-     */
-    public select(range: Range): boolean;
-
-    /**
-     * Select content by Position and collapse to this position
-     * @param position The position to select
-     * @returns True if content is selected, otherwise false
-     */
-    public select(position: NodePosition): boolean;
-
-    /**
-     * Select content by a start and end position
-     * @param start The start position to select
-     * @param end The end position to select, if this is the same with start, the selection will be collapsed
-     * @returns True if content is selected, otherwise false
-     */
-    public select(start: NodePosition, end: NodePosition): boolean;
-
-    /**
-     * Select content by node
-     * @param node The node to select
-     * @returns True if content is selected, otherwise false
-     */
-    public select(node: Node): boolean;
-
-    /**
-     * Select content by node and offset, and collapse to this position
-     * @param node The node to select
-     * @param offset The offset of node to select, can be a number or value of PositionType
-     * @returns True if content is selected, otherwise false
-     */
-    public select(node: Node, offset: number | PositionType): boolean;
-
-    /**
-     * Select content by start and end nodes and offsets
-     * @param startNode The node to select start from
-     * @param startOffset The offset to select start from
-     * @param endNode The node to select end to
-     * @param endOffset The offset to select end to
-     * @returns True if content is selected, otherwise false
-     */
-    public select(
-        startNode: Node,
-        startOffset: number | PositionType,
-        endNode: Node,
-        endOffset: number | PositionType
-    ): boolean;
-
     public select(arg1: any, arg2?: any, arg3?: any, arg4?: any): boolean {
         let range = arg1 instanceof Range ? arg1 : createRange(arg1, arg2, arg3, arg4);
         return this.contains(range) && this.core.api.selectRange(this.core, range);
@@ -600,25 +487,6 @@ export default class Editor {
     //#endregion
 
     //#region EVENT API
-
-    /**
-     * Add a custom DOM event handler to handle events not handled by roosterjs.
-     * Caller need to take the responsibility to dispose the handler properly
-     * @param eventName DOM event name to handle
-     * @param handler Handler callback
-     * @returns A dispose function. Call the function to dispose this event handler
-     */
-    public addDomEventHandler(eventName: string, handler: (event: UIEvent) => void): () => void;
-
-    /**
-     * Add a bunch of custom DOM event handler to handle events not handled by roosterjs.
-     * Caller need to take the responsibility to dispose the handler properly
-     * @param handlerMap A event name => event handler map
-     * @returns A dispose function. Call the function to dispose all event handlers added by this function
-     */
-    public addDomEventHandler(handlerMap: {
-        [eventName: string]: (event: UIEvent) => void;
-    }): () => void;
 
     public addDomEventHandler(
         nameOrMap:

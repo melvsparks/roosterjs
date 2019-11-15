@@ -1,5 +1,5 @@
-import Editor from '../editor/Editor';
 import EditorPlugin from '../interfaces/EditorPlugin';
+import IEditor from '../interfaces/IEditor';
 import {
     applyFormat,
     Browser,
@@ -21,13 +21,13 @@ import {
  * Typing Component helps to ensure typing is always happening under a DOM container
  */
 export default class TypeInContainerPlugin implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
 
     getName() {
         return 'TypeInContainer';
     }
 
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
     }
 

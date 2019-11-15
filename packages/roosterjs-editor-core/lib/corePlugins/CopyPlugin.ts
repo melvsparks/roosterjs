@@ -1,11 +1,11 @@
 import getColorNormalizedContent from '../darkMode/getColorNormalizedContent';
-import { Editor, EditorPlugin } from 'roosterjs-editor-core';
+import { EditorPlugin, IEditor } from 'roosterjs-editor-core';
 
 /**
  * Copy plugin, hijacks copy events to normalize the content to the clipboard.
  */
 export default class CopyPlugin implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
     private eventDisposer: () => void;
 
     /**
@@ -19,7 +19,7 @@ export default class CopyPlugin implements EditorPlugin {
      * Initialize this plugin. This should only be called from Editor
      * @param editor Editor instance
      */
-    public initialize(editor: Editor) {
+    public initialize(editor: IEditor) {
         this.editor = editor;
         this.eventDisposer = editor.addDomEventHandler({
             copy: this.onExtract(false),

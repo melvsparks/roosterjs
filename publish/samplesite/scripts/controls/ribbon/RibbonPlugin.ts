@@ -1,16 +1,16 @@
 import Ribbon from './Ribbon';
-import { Editor, EditorPlugin } from 'roosterjs-editor-core';
+import { EditorPlugin, IEditor } from 'roosterjs-editor-core';
 import { PluginEvent, PluginEventType } from 'roosterjs-editor-types';
 
 export default class RibbonPlugin implements EditorPlugin {
-    editor: Editor;
+    editor: IEditor;
     ribbon: Ribbon;
 
     getName() {
         return 'Ribbon';
     }
 
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
     }
 

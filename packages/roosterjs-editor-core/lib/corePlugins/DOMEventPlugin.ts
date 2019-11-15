@@ -1,5 +1,5 @@
-import Editor from '../editor/Editor';
 import EditorPlugin from '../interfaces/EditorPlugin';
+import IEditor from '../interfaces/IEditor';
 import {
     Browser,
     getPendableFormatState,
@@ -24,7 +24,7 @@ import {
  * 5. Scroll container and scroll event management
  */
 export default class DOMEventPlugin implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
     private inIme = false;
     private disposer: () => void;
     private cachedPosition: NodePosition;
@@ -36,7 +36,7 @@ export default class DOMEventPlugin implements EditorPlugin {
         return 'DOMEvent';
     }
 
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
 
         this.disposer = editor.addDomEventHandler({

@@ -1,4 +1,4 @@
-import { cacheGetContentSearcher, Editor, EditorPlugin } from 'roosterjs-editor-core';
+import { cacheGetContentSearcher, EditorPlugin, IEditor } from 'roosterjs-editor-core';
 import { PluginEvent, PluginEventType, PositionType } from 'roosterjs-editor-types';
 
 /**
@@ -41,7 +41,7 @@ const defaultReplacements: Replacement[] = [
  */
 export default class CustomReplacePlugin implements EditorPlugin {
     private longestReplacementLength: number;
-    private editor: Editor;
+    private editor: IEditor;
     private replacements: Replacement[];
     private replacementEndCharacters: Set<string>;
 
@@ -74,7 +74,7 @@ export default class CustomReplacePlugin implements EditorPlugin {
      * Initialize this plugin
      * @param editor The editor instance
      */
-    public initialize(editor: Editor): void {
+    public initialize(editor: IEditor): void {
         this.editor = editor;
     }
 

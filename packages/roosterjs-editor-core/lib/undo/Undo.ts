@@ -1,4 +1,4 @@
-import Editor from '../editor/Editor';
+import IEditor from '../interfaces/IEditor';
 import UndoService from '../interfaces/UndoService';
 import UndoSnapshots from './UndoSnapshots';
 import UndoSnapshotsService from '../interfaces/UndoSnapshotsService';
@@ -16,7 +16,7 @@ const KEY_DOWN = 40;
  * Provides snapshot based undo service for Editor
  */
 export default class Undo implements UndoService {
-    private editor: Editor;
+    private editor: IEditor;
     private isRestoring: boolean;
     private hasNewContent: boolean;
     private lastKeyPress: number;
@@ -42,7 +42,7 @@ export default class Undo implements UndoService {
      * Initialize this plugin. This should only be called from Editor
      * @param editor Editor instance
      */
-    public initialize(editor: Editor): void {
+    public initialize(editor: IEditor): void {
         this.editor = editor;
     }
 

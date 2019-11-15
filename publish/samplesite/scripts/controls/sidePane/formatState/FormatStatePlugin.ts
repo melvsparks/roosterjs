@@ -1,7 +1,7 @@
 import FormatStatePane, { FormatStatePaneProps } from './FormatStatePane';
 import SidePanePluginImpl from '../SidePanePluginImpl';
-import { Editor } from 'roosterjs-editor-core';
 import { getFormatState } from 'roosterjs-editor-api';
+import { IEditor } from 'roosterjs-editor-core';
 import { PluginEvent, PluginEventType } from 'roosterjs-editor-types';
 import { SidePaneElementProps } from '../SidePaneElement';
 
@@ -13,7 +13,7 @@ export default class FormatStatePlugin extends SidePanePluginImpl<
         super(FormatStatePane, 'format', 'Format State');
     }
 
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         super.initialize(editor);
         this.editor.runAsync(() => {
             this.editor.focus();

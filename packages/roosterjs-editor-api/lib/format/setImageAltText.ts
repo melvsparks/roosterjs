@@ -1,5 +1,5 @@
 import { ChangeSource, QueryScope } from 'roosterjs-editor-types';
-import { Editor } from 'roosterjs-editor-core';
+import { IEditor } from 'roosterjs-editor-core';
 
 /**
  * Set image alt text for all selected images at selection. If no images is contained
@@ -10,7 +10,7 @@ import { Editor } from 'roosterjs-editor-core';
  * @param editor The editor instance
  * @param altText The image alt text
  */
-export default function setImageAltText(editor: Editor, altText: string) {
+export default function setImageAltText(editor: IEditor, altText: string) {
     editor.focus();
     editor.addUndoSnapshot(() => {
         editor.queryElements('img', QueryScope.OnSelection, node =>

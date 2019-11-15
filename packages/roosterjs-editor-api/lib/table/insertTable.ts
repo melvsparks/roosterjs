@@ -1,5 +1,5 @@
 import { ChangeSource, PositionType, TableFormat } from 'roosterjs-editor-types';
-import { Editor } from 'roosterjs-editor-core';
+import { IEditor } from 'roosterjs-editor-core';
 import { Position, VTable } from 'roosterjs-editor-dom';
 
 /**
@@ -12,7 +12,7 @@ import { Position, VTable } from 'roosterjs-editor-dom';
  * background color: #FFF; border color: #ABABAB
  */
 export default function insertTable(
-    editor: Editor,
+    editor: IEditor,
     columns: number,
     rows: number,
     format?: TableFormat

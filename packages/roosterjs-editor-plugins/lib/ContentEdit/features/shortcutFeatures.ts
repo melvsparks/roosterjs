@@ -1,5 +1,5 @@
 import { Browser } from 'roosterjs-editor-dom';
-import { cacheGetEventData, ContentEditFeature, Editor, Keys } from 'roosterjs-editor-core';
+import { cacheGetEventData, ContentEditFeature, IEditor, Keys } from 'roosterjs-editor-core';
 import { FontSizeChange, PluginEventType, PluginKeyboardEvent } from 'roosterjs-editor-types';
 import {
     changeFontSize,
@@ -13,10 +13,10 @@ import {
 interface ShortcutCommand {
     winKey: number;
     macKey: number;
-    action: (editor: Editor) => any;
+    action: (editor: IEditor) => any;
 }
 
-function createCommand(winKey: number, macKey: number, action: (editor: Editor) => any) {
+function createCommand(winKey: number, macKey: number, action: (editor: IEditor) => any) {
     return {
         winKey,
         macKey,

@@ -1,5 +1,5 @@
 import { contains, fromHtml, isRtl, VTable } from 'roosterjs-editor-dom';
-import { Editor, EditorPlugin } from 'roosterjs-editor-core';
+import { EditorPlugin, IEditor } from 'roosterjs-editor-core';
 import {
     ContentPosition,
     PluginEvent,
@@ -16,7 +16,7 @@ const CONTAINER_HTML = `<div style="position: fixed; cursor: col-resize; width: 
  * TableResize plugin, provides the ability to resize a table by drag-and-drop
  */
 export default class TableResize implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
     private onMouseOverDisposer: () => void;
     private td: HTMLTableCellElement;
     private pageX = -1;
@@ -26,7 +26,7 @@ export default class TableResize implements EditorPlugin {
      * Initialize this plugin. This should only be called from Editor
      * @param editor Editor instance
      */
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
         this.onMouseOverDisposer = this.editor.addDomEventHandler('mouseover', this.onMouseOver);
     }

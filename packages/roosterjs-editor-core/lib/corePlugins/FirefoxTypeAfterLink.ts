@@ -1,5 +1,5 @@
-import Editor from '../editor/Editor';
 import EditorPlugin from '../interfaces/EditorPlugin';
+import IEditor from '../interfaces/IEditor';
 import { cacheGetContentSearcher } from '../eventApi/cacheGetContentSearcher';
 import { LinkInlineElement, Position } from 'roosterjs-editor-dom';
 import { PluginEvent, PluginEventType, PositionType } from 'roosterjs-editor-types';
@@ -10,13 +10,13 @@ import { PluginEvent, PluginEventType, PositionType } from 'roosterjs-editor-typ
  * This plugin overrides this behavior to make it consistent with other browsers.
  */
 export default class FirefoxTypeAfterLink implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
 
     getName() {
         return 'FirefoxTypeAfterLink';
     }
 
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
     }
 

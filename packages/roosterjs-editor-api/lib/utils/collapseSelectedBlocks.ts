@@ -1,6 +1,6 @@
 import { BlockElement, NodeType } from 'roosterjs-editor-types';
-import { Editor } from 'roosterjs-editor-core';
 import { getTagOfNode, StartEndBlockElement } from 'roosterjs-editor-dom';
+import { IEditor } from 'roosterjs-editor-core';
 
 /**
  * Collapse all selected blocks, return single HTML elements for each block
@@ -8,7 +8,7 @@ import { getTagOfNode, StartEndBlockElement } from 'roosterjs-editor-dom';
  * @param forEachCallback A callback function to invoke for each of the collapsed element
  */
 export default function collapseSelectedBlocked(
-    editor: Editor,
+    editor: IEditor,
     forEachCallback: (element: HTMLElement) => any
 ) {
     let traverser = editor.getSelectionTraverser();

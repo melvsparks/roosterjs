@@ -1,5 +1,5 @@
-import Editor from '../editor/Editor';
 import EditorPlugin from '../interfaces/EditorPlugin';
+import IEditor from '../interfaces/IEditor';
 import { GenericContentEditFeature, Keys } from '../interfaces/ContentEditFeature';
 import { isCtrlOrMetaPressed } from 'roosterjs-editor-core';
 import {
@@ -13,7 +13,7 @@ import {
  * Edit Component helps handle Content edit features
  */
 export default class EditPlugin implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
     private featureMap: { [key: number]: GenericContentEditFeature<PluginEvent>[] } = {};
 
     private autoCompleteSnapshot: string = null;
@@ -23,12 +23,12 @@ export default class EditPlugin implements EditorPlugin {
         return 'Edit';
     }
 
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
         this.addFeature({
             keys: [Keys.BACKSPACE],
             shouldHandleEvent: () => this.autoCompleteSnapshot !== null,
-            handleEvent: (event: PluginKeyboardEvent, editor: Editor) => {
+            handleEvent: (event: PluginKeyboardEvent, editor: IEditor) => {
                 event.rawEvent.preventDefault();
                 editor.setContent(this.autoCompleteSnapshot, false /*triggerContentChangedEvent*/);
             },

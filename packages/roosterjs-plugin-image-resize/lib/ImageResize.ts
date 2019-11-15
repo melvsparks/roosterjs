@@ -1,5 +1,5 @@
 import { contains, getTagOfNode } from 'roosterjs-editor-dom';
-import { Editor, EditorPlugin } from 'roosterjs-editor-core';
+import { EditorPlugin, IEditor } from 'roosterjs-editor-core';
 import {
     ContentChangedEvent,
     ChangeSource,
@@ -26,7 +26,7 @@ const ALT_KEYCODE = 18;
  * ImageResize plugin provides the ability to resize an inline image in editor
  */
 export default class ImageResize implements EditorPlugin {
-    private editor: Editor;
+    private editor: IEditor;
     private startPageX: number;
     private startPageY: number;
     private startWidth: number;
@@ -63,7 +63,7 @@ export default class ImageResize implements EditorPlugin {
      * Initialize this plugin. This should only be called from Editor
      * @param editor Editor instance
      */
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
         this.disposer = editor.addDomEventHandler({
             dragstart: this.onDragStart,

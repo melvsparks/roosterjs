@@ -9,7 +9,7 @@ import {
     ClipboardData,
 } from 'roosterjs-editor-types';
 import {
-    Editor,
+    IEditor,
     cacheGetEventData,
     cacheGetContentSearcher,
     clearContentSearcherCache,
@@ -47,7 +47,7 @@ export const UnlinkWhenBackspaceAfterLink: GenericContentEditFeature<PluginKeybo
     },
 };
 
-function cacheGetLinkData(event: PluginEvent, editor: Editor): LinkData {
+function cacheGetLinkData(event: PluginEvent, editor: IEditor): LinkData {
     return event.eventType == PluginEventType.KeyDown ||
         (event.eventType == PluginEventType.ContentChanged && event.source == ChangeSource.Paste)
         ? cacheGetEventData(event, 'LINK_DATA', () => {
@@ -93,13 +93,13 @@ function cacheGetLinkData(event: PluginEvent, editor: Editor): LinkData {
         : null;
 }
 
-function hasLinkBeforeCursor(event: PluginKeyboardEvent, editor: Editor): boolean {
+function hasLinkBeforeCursor(event: PluginKeyboardEvent, editor: IEditor): boolean {
     let contentSearcher = cacheGetContentSearcher(event, editor);
     let inline = contentSearcher.getInlineElementBefore();
     return inline instanceof LinkInlineElement;
 }
 
-function autoLink(event: PluginEvent, editor: Editor) {
+function autoLink(event: PluginEvent, editor: IEditor) {
     let anchor = editor.getDocument().createElement('a');
     let linkData = cacheGetLinkData(event, editor);
 

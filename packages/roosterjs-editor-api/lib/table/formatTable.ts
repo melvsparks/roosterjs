@@ -1,5 +1,5 @@
 import { ChangeSource, TableFormat } from 'roosterjs-editor-types';
-import { Editor } from 'roosterjs-editor-core';
+import { IEditor } from 'roosterjs-editor-core';
 import { VTable } from 'roosterjs-editor-dom';
 
 /**
@@ -9,7 +9,7 @@ import { VTable } from 'roosterjs-editor-dom';
  * @param table The table to format. This is optional. When not passed, the current table (if any) will be formatted
  */
 export default function formatTable(
-    editor: Editor,
+    editor: IEditor,
     format: Partial<TableFormat>,
     table?: HTMLTableElement
 ) {

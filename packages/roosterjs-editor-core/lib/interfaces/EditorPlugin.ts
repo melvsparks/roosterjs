@@ -1,4 +1,4 @@
-import Editor from '../editor/Editor';
+import IEditor from '../interfaces/IEditor';
 import { PluginEvent } from 'roosterjs-editor-types';
 
 /**
@@ -16,7 +16,7 @@ export default interface EditorPlugin {
      * editor reference so that it can call to any editor method or format API later.
      * @param editor The editor object
      */
-    initialize: (editor: Editor) => void;
+    initialize: (editor: IEditor) => void;
 
     /**
      * The last method that editor will call to a plugin before it is disposed.

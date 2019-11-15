@@ -1,5 +1,5 @@
-import Editor from '../editor/Editor';
 import EditorPlugin from '../interfaces/EditorPlugin';
+import IEditor from '../interfaces/IEditor';
 import { PluginEvent, PluginEventType } from 'roosterjs-editor-types';
 
 /**
@@ -9,13 +9,13 @@ import { PluginEvent, PluginEventType } from 'roosterjs-editor-types';
  */
 export default class MouseUpPlugin implements EditorPlugin {
     private mouseUpEventListerAdded: boolean;
-    private editor: Editor;
+    private editor: IEditor;
 
     getName() {
         return 'MouseUp';
     }
 
-    initialize(editor: Editor) {
+    initialize(editor: IEditor) {
         this.editor = editor;
     }
 
