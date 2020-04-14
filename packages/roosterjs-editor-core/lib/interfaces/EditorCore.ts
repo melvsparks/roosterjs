@@ -1,3 +1,4 @@
+import BlobInlineImage from '../corePlugins/BlobInlineImage';
 import CopyPlugin from '../corePlugins/CopyPlugin';
 import DOMEventPlugin from '../corePlugins/DOMEventPlugin';
 import EditorPlugin from './EditorPlugin';
@@ -56,6 +57,11 @@ export interface CorePlugins {
      * Copy plguin for handling dark mode copy.
      */
     readonly copyPlugin: CopyPlugin;
+
+    /**
+     * BlobInlineImage plugin handles inline image blob with object url
+     */
+    readonly blobInlineImage: BlobInlineImage;
 }
 
 /**

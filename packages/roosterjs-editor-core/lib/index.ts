@@ -36,6 +36,7 @@ export { default as DOMEventPlugin } from './corePlugins/DOMEventPlugin';
 export { default as TypeInContainerPlugin } from './corePlugins/TypeInContainerPlugin';
 export { default as FirefoxTypeAfterLink } from './corePlugins/FirefoxTypeAfterLink';
 export { default as CopyPlugin } from './corePlugins/CopyPlugin';
+export { default as BlobInlineImage } from './corePlugins/BlobInlineImage';
 
 // Event APIs
 export { default as cacheGetEventData } from './eventApi/cacheGetEventData';

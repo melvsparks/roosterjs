@@ -966,5 +966,14 @@ export default class Editor {
         return this.core.darkModeOptions;
     }
 
+    /**
+     * Create an object url for the given BLOB object. This url doesn't need to be revoked because editor will handle its lifecycle
+     * @param obj The object to convert to object url
+     * @param callback A callback to invoke when the url is ready
+     */
+    public createObjectUrl(obj: Blob, callback: (url: string) => void) {
+        this.core.corePlugins.blobInlineImage.createObjectUrl(obj, callback);
+    }
+
     //#endregion
 }

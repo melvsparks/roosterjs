@@ -20,13 +20,7 @@ export default function insertImage(editor: Editor, imageFile: File | string): v
     if (typeof imageFile == 'string') {
         insertImageWithSrc(editor, imageFile);
     } else {
-        let reader = new FileReader();
-        reader.onload = (event: ProgressEvent) => {
-            if (!editor.isDisposed()) {
-                insertImageWithSrc(editor, (event.target as FileReader).result as string);
-            }
-        };
-        reader.readAsDataURL(imageFile);
+        editor.createObjectUrl(imageFile, url => insertImageWithSrc(editor, url));
     }
 }
 

@@ -1,3 +1,4 @@
+import BlobInlineImage from '../corePlugins/BlobInlineImage';
 import CopyPlugin from '../corePlugins/CopyPlugin';
 import DOMEventPlugin from '../corePlugins/DOMEventPlugin';
 import EditorCore, { CoreApiMap, CorePlugins } from '../interfaces/EditorCore';
@@ -38,6 +39,7 @@ export default function createEditorCore(
         domEvent: new DOMEventPlugin(options.disableRestoreSelectionOnFocus),
         firefoxTypeAfterLink: new FirefoxTypeAfterLink(),
         copyPlugin: !Browser.isIE && new CopyPlugin(),
+        blobInlineImage: new BlobInlineImage(),
     };
     let allPlugins = buildPluginList(corePlugins, options.plugins);
     let eventHandlerPlugins = allPlugins.filter(
@@ -71,6 +73,7 @@ function buildPluginList(corePlugins: CorePlugins, plugins: EditorPlugin[]): Edi
         corePlugins.edit,
         corePlugins.mouseUp,
         ...(plugins || []),
+        corePlugins.blobInlineImage,
         corePlugins.firefoxTypeAfterLink,
         corePlugins.undo,
         corePlugins.domEvent,
