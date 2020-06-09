@@ -130,7 +130,7 @@ export const AutoBullet: ContentEditFeature = {
         return false;
     },
     handleEvent: (event, editor) => {
-        editor.runAsync(() => {
+        window.setTimeout(() => {
             editor.performAutoComplete(() => {
                 let searcher = editor.getContentSearcherOfCursor();
                 let textBeforeCursor = searcher.getSubStringBefore(3);
@@ -147,6 +147,13 @@ export const AutoBullet: ContentEditFeature = {
 
                 if (rangeToDelete) {
                     rangeToDelete.deleteContents();
+                    console.log(
+                        '[AutoBullet] 4: ' +
+                            rangeToDelete.toString() +
+                            ', ' +
+                            rangeToDelete.toString().length
+                    );
+
                     const node = rangeToDelete.startContainer;
                     const isEmptyText =
                         node?.nodeType == NodeType.Text &&
@@ -154,7 +161,7 @@ export const AutoBullet: ContentEditFeature = {
                         !node.previousSibling &&
                         !node.nextSibling;
                     console.log(
-                        '[AutoBullet] 4: ' +
+                        '[AutoBullet] 5: ' +
                             isEmptyText +
                             ', ' +
                             node?.nodeValue +
@@ -175,7 +182,7 @@ export const AutoBullet: ContentEditFeature = {
                     toggleBullet(editor);
                 }
             });
-        });
+        }, 0);
     },
 };
 
