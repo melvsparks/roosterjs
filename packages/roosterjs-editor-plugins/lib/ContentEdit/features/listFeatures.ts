@@ -113,13 +113,19 @@ export const AutoBullet: ContentEditFeature = {
             let searcher = cacheGetContentSearcher(event, editor);
             let textBeforeCursor = searcher.getSubStringBefore(3);
 
-            // Auto list is triggered if:
-            // 1. Text before cursor exactly mathces '*', '-' or '1.'
-            // 2. There's no non-text inline entities before cursor
-            return (
+            if (
                 ['*', '-', '1.'].indexOf(textBeforeCursor) >= 0 &&
                 !searcher.getNearestNonTextInlineElement()
-            );
+            ) {
+                console.log('1: ' + textBeforeCursor + ', ' + textBeforeCursor.length);
+
+                // Auto list is triggered if:
+                // 1. Text before cursor exactly mathces '*', '-' or '1.'
+                // 2. There's no non-text inline entities before cursor
+                return true;
+            } else {
+                return false;
+            }
         }
         return false;
     },
@@ -128,20 +134,35 @@ export const AutoBullet: ContentEditFeature = {
             editor.performAutoComplete(() => {
                 let searcher = editor.getContentSearcherOfCursor();
                 let textBeforeCursor = searcher.getSubStringBefore(3);
+
+                console.log('2: ' + textBeforeCursor + ', ' + textBeforeCursor.length);
+
                 let rangeToDelete = searcher.getRangeFromText(
                     textBeforeCursor,
                     true /*exactMatch*/
                 );
 
+                const txtInRange = rangeToDelete.toString();
+                console.log('3: ' + txtInRange + ', ' + txtInRange.length);
+
                 if (rangeToDelete) {
                     rangeToDelete.deleteContents();
                     const node = rangeToDelete.startContainer;
-                    if (
+                    const isEmptyText =
                         node?.nodeType == NodeType.Text &&
                         node.nodeValue == '' &&
                         !node.previousSibling &&
-                        !node.nextSibling
-                    ) {
+                        !node.nextSibling;
+                    console.log(
+                        '4: ' +
+                            isEmptyText +
+                            ', ' +
+                            node?.nodeValue +
+                            ', ' +
+                            node?.nodeValue?.length
+                    );
+
+                    if (isEmptyText) {
                         const br = editor.getDocument().createElement('BR');
                         editor.insertNode(br);
                         editor.select(br, PositionType.Before);
