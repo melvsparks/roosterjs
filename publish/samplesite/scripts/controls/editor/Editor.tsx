@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BuildInPluginState, { UrlPlaceholder } from '../BuildInPluginState';
 import SampleColorPickerPluginDataProvider from '../samplepicker/SampleColorPickerPluginDataProvider';
+import { Browser } from 'roosterjs-editor-dom';
 import { EditorInstanceToggleablePlugins } from './EditorInstanceToggleablePlugins';
 import { ImageResize } from 'roosterjs-plugin-image-resize';
 import { PickerPlugin } from 'roosterjs-plugin-picker';
@@ -12,6 +13,7 @@ import {
 } from 'roosterjs-editor-core';
 
 import {
+    AutoBulletForIOS,
     HyperLink,
     Paste,
     ContentEdit,
@@ -109,6 +111,7 @@ export default class Editor extends React.Component<EditorProps, BuildInPluginSt
                 k => (editorInstanceToggleablePlugins as any)[k]
             ),
             ...this.props.plugins,
+            (Browser.isIPad || Browser.isIPhone) && new AutoBulletForIOS(),
         ];
         let defaultFormat = { ...this.state.defaultFormat };
         let options: EditorOptions = {

@@ -103,6 +103,9 @@ export default class FormatStatePane extends React.Component<
                             {this.renderSpan(Browser.isIEOrEdge, 'IE/Edge')}
                             {this.renderSpan(Browser.isSafari, 'Safari')}
                             {this.renderSpan(Browser.isWebKit, 'Webkit')}
+                            {this.renderSpan(Browser.isIPhone, 'iPhone')}
+                            {this.renderSpan(Browser.isIPad, 'iPad')}
+                            {this.renderSpan(Browser.isAndroid, 'Android')}
                         </td>
                     </tr>
                     <tr>

@@ -20,6 +20,9 @@ export function getBrowserInfo(userAgent: string, appVersion: string): BrowserIn
     let isSafari = false;
     let isEdge = false;
     let isWebKit = userAgent.indexOf('WebKit') != -1;
+    let isIPhone = userAgent.indexOf('iPhone') != -1;
+    let isIPad = userAgent.indexOf('iPad') != -1;
+    let isAndroid = userAgent.indexOf('Android') != -1;
 
     if (!isIE) {
         isChrome = userAgent.indexOf('Chrome') != -1;
@@ -44,6 +47,9 @@ export function getBrowserInfo(userAgent: string, appVersion: string): BrowserIn
     return {
         isMac,
         isWin,
+        isIPhone,
+        isIPad,
+        isAndroid,
         isWebKit,
         isIE,
         isIE11OrGreater,

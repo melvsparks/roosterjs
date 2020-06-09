@@ -1,3 +1,4 @@
+import cacheGetListElement from '../../utils/cacheGetListElement';
 import { setIndentation, toggleBullet, toggleNumbering } from 'roosterjs-editor-api';
 import {
     getTagOfNode,
@@ -196,10 +197,4 @@ function toggleListAndPreventDefault(event: PluginKeyboardEvent, editor: Editor)
         editor.focus();
         event.rawEvent.preventDefault();
     }
-}
-
-function cacheGetListElement(event: PluginKeyboardEvent, editor: Editor) {
-    let li = cacheGetElementAtCursor(editor, event, 'LI,TABLE');
-    let listElement = li && getTagOfNode(li) == 'LI' && editor.getElementAtCursor('UL,OL', li);
-    return listElement ? [listElement, li] : null;
 }

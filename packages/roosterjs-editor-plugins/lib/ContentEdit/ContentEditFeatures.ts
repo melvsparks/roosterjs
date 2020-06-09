@@ -122,7 +122,7 @@ export function getDefaultContentEditFeatures(): ContentEditFeatures {
         mergeInNewLineWhenBackspaceOnFirstChar: false,
         unquoteWhenBackspaceOnEmptyFirstLine: true,
         unquoteWhenEnterOnEmptyLine: true,
-        autoBullet: true,
+        autoBullet: !Browser.isIPhone && !Browser.isIPad,
         tabInTable: true,
         upDownInTable: Browser.isChrome || Browser.isSafari,
         insertLineBeforeStructuredNodeFeature: false,
