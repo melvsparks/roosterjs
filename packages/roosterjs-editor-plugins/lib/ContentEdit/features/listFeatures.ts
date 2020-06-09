@@ -182,7 +182,7 @@ export const AutoBullet: ContentEditFeature = {
                     toggleBullet(editor);
                 }
             });
-        }, 0);
+        }, 1000);
     },
 };
 
