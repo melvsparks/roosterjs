@@ -45,7 +45,6 @@
         "max-line-length": false,
         "no-arg": true,
         "no-bitwise": false,
-        "no-console": [true, "debug", "info", "log", "time", "timeEnd", "trace"],
         "no-construct": true,
         "no-constructor-vars": false,
         "no-debugger": true,
