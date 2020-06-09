@@ -117,7 +117,7 @@ export const AutoBullet: ContentEditFeature = {
                 ['*', '-', '1.'].indexOf(textBeforeCursor) >= 0 &&
                 !searcher.getNearestNonTextInlineElement()
             ) {
-                console.log('1: ' + textBeforeCursor + ', ' + textBeforeCursor.length);
+                console.log('[AutoBullet] 1: ' + textBeforeCursor + ', ' + textBeforeCursor.length);
 
                 // Auto list is triggered if:
                 // 1. Text before cursor exactly mathces '*', '-' or '1.'
@@ -135,7 +135,7 @@ export const AutoBullet: ContentEditFeature = {
                 let searcher = editor.getContentSearcherOfCursor();
                 let textBeforeCursor = searcher.getSubStringBefore(3);
 
-                console.log('2: ' + textBeforeCursor + ', ' + textBeforeCursor.length);
+                console.log('[AutoBullet] 2: ' + textBeforeCursor + ', ' + textBeforeCursor.length);
 
                 let rangeToDelete = searcher.getRangeFromText(
                     textBeforeCursor,
@@ -143,7 +143,7 @@ export const AutoBullet: ContentEditFeature = {
                 );
 
                 const txtInRange = rangeToDelete.toString();
-                console.log('3: ' + txtInRange + ', ' + txtInRange.length);
+                console.log('[AutoBullet] 3: ' + txtInRange + ', ' + txtInRange.length);
 
                 if (rangeToDelete) {
                     rangeToDelete.deleteContents();
@@ -154,7 +154,7 @@ export const AutoBullet: ContentEditFeature = {
                         !node.previousSibling &&
                         !node.nextSibling;
                     console.log(
-                        '4: ' +
+                        '[AutoBullet] 4: ' +
                             isEmptyText +
                             ', ' +
                             node?.nodeValue +
