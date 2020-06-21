@@ -27,6 +27,7 @@ export { default as ContentChangedEvent } from './event/ContentChangedEvent';
 export { default as EditorReadyEvent } from './event/EditorReadyEvent';
 export { default as EntityOperationEvent } from './event/EntityOperationEvent';
 export { default as ExtractContentEvent } from './event/ExtractContentEvent';
+export { default as ExtractContentWithDomEvent } from './event/ExtractContentWithDomEvent';
 export { default as PendingFormatStateChangedEvent } from './event/PendingFormatStateChangedEvent';
 export {
     PluginDomEvent,

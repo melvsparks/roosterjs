@@ -2,13 +2,10 @@ import adjustBrowserBehavior from './adjustBrowserBehavior';
 import createEditorCore from './createEditorCore';
 import EditorCore from '../interfaces/EditorCore';
 import EditorOptions from '../interfaces/EditorOptions';
-import getColorNormalizedContent from '../darkMode/getColorNormalizedContent';
-import getEntityFromElement from '../entityApi/getEntityFromElement';
 import mapPluginEvents from './mapPluginEvents';
 import { calculateDefaultFormat } from '../coreAPI/calculateDefaultFormat';
 import { convertContentToDarkMode } from '../darkMode/convertContentToDarkMode';
 import { GenericContentEditFeature } from '../interfaces/ContentEditFeature';
-import { getEntitySelector } from '../entityApi/EntityInfo';
 import {
     BlockElement,
     ChangeSource,
@@ -28,7 +25,6 @@ import {
     Region,
     RegionType,
     SelectionPath,
-    EntityOperation,
 } from 'roosterjs-editor-types';
 import {
     collapseNodes,
@@ -355,28 +351,24 @@ export default class Editor {
         triggerExtractContentEvent: boolean = true,
         includeSelectionMarker: boolean = false
     ): string {
-        let content: string;
+        let content = '';
         if (triggerExtractContentEvent || this.core.inDarkMode) {
-            const clonedDiv = this.core.contentDiv.cloneNode(true /*deep*/) as HTMLElement;
-
-            if (triggerExtractContentEvent) {
-                queryElements(clonedDiv, getEntitySelector(), node => {
-                    node.removeAttribute('contentEditable');
-
-                    const entity = getEntityFromElement(node);
-                    if (entity) {
-                        this.triggerEvent({
-                            eventType: PluginEventType.EntityOperation,
-                            operation: EntityOperation.ReplaceTemporaryContent,
-                            entity,
-                        });
-                    }
-                });
+            const fragment = this.core.document.createDocumentFragment();
+            for (let child = this.core.contentDiv.firstChild; child; child = child.nextSibling) {
+                fragment.appendChild(child.cloneNode(true /*deep*/));
             }
 
-            content = this.core.inDarkMode
-                ? getColorNormalizedContent(clonedDiv)[0]
-                : clonedDiv.innerHTML;
+            this.triggerEvent({
+                eventType: PluginEventType.ExtractContentWithDom,
+                clonedFragment: fragment,
+            });
+
+            const root = this.core.document.createElement('div');
+
+            // Leverage script execution policy on CEDs to try and prevent XSS
+            root.contentEditable = 'true';
+            root.appendChild(fragment);
+            content = root.innerHTML;
         } else {
             content = getHtmlWithSelectionPath(
                 this.core.contentDiv,

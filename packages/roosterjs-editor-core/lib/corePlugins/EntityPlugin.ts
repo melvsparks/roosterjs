@@ -81,6 +81,9 @@ export default class EntityPlugin implements EditorPlugin {
             case PluginEventType.EditorReady:
                 this.handleContentChangedEvent(true /*resetAll*/);
                 break;
+            case PluginEventType.ExtractContentWithDom:
+                this.handleExtractContentWithDomEvent(event.clonedFragment);
+                break;
         }
     }
 
@@ -178,6 +181,18 @@ export default class EntityPlugin implements EditorPlugin {
 
                 tryTriggerEntityEvent(this.editor, element, EntityOperation.NewEntity);
             }
+        });
+    }
+
+    private handleExtractContentWithDomEvent(fragment: DocumentFragment) {
+        toArray(fragment.querySelectorAll(getEntitySelector())).forEach(element => {
+            element.removeAttribute('contentEditable');
+
+            tryTriggerEntityEvent(
+                this.editor,
+                element as HTMLElement,
+                EntityOperation.ReplaceTemporaryContent
+            );
         });
     }
 
