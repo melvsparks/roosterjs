@@ -44,6 +44,12 @@ export const enum EntityOperation {
     Overwrite,
 
     /**
+     * Notify plugins that an entity is being partially overwritten.
+     * This happens when user selected part of the entity then do key press, or cut, paste, delete, backspace, ...
+     */
+    PartialOverwrite,
+
+    /**
      * Notify plugins that editor is generating HTML content for save.
      * Plugin should use this event to remove any temporary content, and only leave DOM nodes that
      * should be saved as HTML string.

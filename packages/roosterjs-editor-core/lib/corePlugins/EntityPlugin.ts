@@ -182,9 +182,33 @@ export default class EntityPlugin implements EditorPlugin {
     }
 
     private checkRemoveEntityForRange(event: UIEvent) {
-        this.editor.queryElements(getEntitySelector(), QueryScope.OnSelection, element => {
-            tryTriggerEntityEvent(this.editor, element, EntityOperation.Overwrite, event);
+        const editableEntityElements: HTMLElement[] = [];
+        const selector = getEntitySelector();
+        this.editor.queryElements(selector, QueryScope.OnSelection, element => {
+            if (element.isContentEditable) {
+                editableEntityElements.push(element);
+            } else {
+                tryTriggerEntityEvent(this.editor, element, EntityOperation.Overwrite, event);
+            }
         });
+
+        // For editable entities, we need to check if it is fully or partially covered by current selection,
+        // and trigger different events;
+        if (editableEntityElements.length > 0) {
+            const inSelectionEntityElements = this.editor.queryElements(
+                selector,
+                QueryScope.InSelection
+            );
+            editableEntityElements.forEach(element => {
+                const isFullyCovered = inSelectionEntityElements.indexOf(element) >= 0;
+                tryTriggerEntityEvent(
+                    this.editor,
+                    element,
+                    isFullyCovered ? EntityOperation.Overwrite : EntityOperation.PartialOverwrite,
+                    event
+                );
+            });
+        }
     }
 }
 
