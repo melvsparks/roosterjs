@@ -1,12 +1,9 @@
-import Editor from '../editor/Editor';
-import EditorPlugin from '../interfaces/EditorPlugin';
-import getEntityElement from '../entityApi/getEntityElement';
-import getEntityFromElement from '../entityApi/getEntityFromElement';
-import isCharacterValue from '../eventApi/isCharacterValue';
-import tryTriggerEntityEvent from '../entityApi/tryTriggerEntityEvent';
+import getEntityElement from './getEntityElement';
+import getEntityFromElement from './getEntityFromElement';
+import tryTriggerEntityEvent from './tryTriggerEntityEvent';
 import { Browser, toArray } from 'roosterjs-editor-dom';
-import { getAllEntityIds, getEntitySelector, serializeEntityInfo } from '../entityApi/EntityInfo';
-import { Keys } from '../interfaces/ContentEditFeature';
+import { Editor, EditorPlugin, isCharacterValue, Keys } from 'roosterjs-editor-core';
+import { getAllEntityIds, getEntitySelector, serializeEntityInfo } from './EntityInfo';
 import {
     ContentPosition,
     EntityOperation,

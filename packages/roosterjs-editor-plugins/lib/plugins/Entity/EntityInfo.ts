@@ -1,5 +1,5 @@
-import Editor from '../editor/Editor';
 import getEntities from './getEntities';
+import { Editor } from 'roosterjs-editor-core';
 
 const ENTITY_ID_REGEX = /_\d{1,8}$/;
 const ENTITY_INFO_NAME = '_Entity';

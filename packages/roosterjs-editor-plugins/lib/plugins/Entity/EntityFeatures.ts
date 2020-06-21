@@ -1,8 +1,6 @@
-import cacheGetEventData from '../eventApi/cacheGetEventData';
-import Editor from '../editor/Editor';
-import getEntityElement from '../entityApi/getEntityElement';
-import tryTriggerEntityEvent from '../entityApi/tryTriggerEntityEvent';
-import { ContentEditFeature, Keys } from '../interfaces/ContentEditFeature';
+import getEntityElement from './getEntityElement';
+import tryTriggerEntityEvent from './tryTriggerEntityEvent';
+import { cacheGetEventData, ContentEditFeature, Editor, Keys } from 'roosterjs-editor-core';
 import { Position } from 'roosterjs-editor-dom';
 import {
     EntityOperation,

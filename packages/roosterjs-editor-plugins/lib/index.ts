@@ -8,3 +8,4 @@ export {
 export { default as Watermark } from './Watermark/Watermark';
 export { default as TableResize } from './TableResize/TableResize';
 export { default as CustomReplace, Replacement } from './CustomReplace/CustomReplace';
+export * from './Entity';

@@ -2,7 +2,6 @@ import CopyPlugin from '../corePlugins/CopyPlugin';
 import DOMEventPlugin from '../corePlugins/DOMEventPlugin';
 import EditorPlugin from './EditorPlugin';
 import EditPlugin from '../corePlugins/EditPlugin';
-import EntityPlugin from '../corePlugins/EntityPlugin';
 import FirefoxTypeAfterLink from '../corePlugins/FirefoxTypeAfterLink';
 import MouseUpPlugin from '../corePlugins/MouseUpPlugin';
 import TypeInContainerPlugin from '../corePlugins/TypeInContainerPlugin';
@@ -57,11 +56,6 @@ export interface CorePlugins {
      * Copy plugin for handling dark mode copy.
      */
     readonly copyPlugin: CopyPlugin;
-
-    /**
-     * Entity plugin for handling entity related events
-     */
-    readonly entityPlugin: EntityPlugin;
 }
 
 /**

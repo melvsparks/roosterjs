@@ -1,5 +1,5 @@
-import Editor from '../editor/Editor';
 import getEntityFromElement from './getEntityFromElement';
+import { Editor } from 'roosterjs-editor-core';
 import { EntityOperation, PluginEventType } from 'roosterjs-editor-types';
 
 /**

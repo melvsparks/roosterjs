@@ -1,4 +1,4 @@
-import Editor from '../editor/Editor';
+import { Editor } from 'roosterjs-editor-core';
 import { getEntitySelector } from './EntityInfo';
 
 /**
