@@ -19,12 +19,6 @@ const ALLOWED_HTML_ATTRIBUTES = (
     'width,wrap'
 ).split(',');
 
-// This is to preserve entity related CSS classes when paste.
-// TODO: This should be part of entity code.
-// We temporarily put here, and we will move it away once we can move paste plugin
-// as a core plugin
-const ALLOWED_CSS_CLASSES = ['^_Entity$', '^_EId_', '^_EType_', '^_EReadonly_'];
-
 const DEFAULT_STYLE_VALUES: { [name: string]: string } = {
     'background-color': 'transparent',
     'border-bottom-color': 'rgb(0, 0, 0)',
@@ -66,6 +60,12 @@ const DEFAULT_STYLE_VALUES: { [name: string]: string } = {
     'vertical-align': 'baseline',
     float: 'none',
 };
+
+// This is to preserve entity related CSS classes when paste.
+// TODO: This should be part of entity code.
+// We temporarily put here, and we will move it away once we can move paste plugin
+// as a core plugin
+const ALLOWED_CSS_CLASSES = ['^_Entity$', '^_EId_', '^_EType_', '^_EReadonly_'];
 
 /**
  * @internal

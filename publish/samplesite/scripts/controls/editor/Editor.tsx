@@ -2,8 +2,6 @@ import * as React from 'react';
 import BuildInPluginState, { UrlPlaceholder } from '../BuildInPluginState';
 import SampleColorPickerPluginDataProvider from '../samplepicker/SampleColorPickerPluginDataProvider';
 import { EditorInstanceToggleablePlugins } from './EditorInstanceToggleablePlugins';
-import { ImageResize } from 'roosterjs-plugin-image-resize';
-import { PickerPlugin } from 'roosterjs-plugin-picker';
 import {
     Editor as RoosterJsEditor,
     EditorOptions,
@@ -21,6 +19,8 @@ import {
     getDefaultContentEditFeatures,
     CustomReplace as CustomReplacePlugin,
     EntityPlugin,
+    ImageResize,
+    PickerPlugin,
 } from 'roosterjs-editor-plugins';
 
 const styles = require('./Editor.scss');

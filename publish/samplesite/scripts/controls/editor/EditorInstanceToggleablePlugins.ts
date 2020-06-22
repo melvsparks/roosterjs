@@ -1,12 +1,12 @@
-import { CustomReplace } from 'roosterjs-editor-plugins';
-import { ImageResize } from 'roosterjs-plugin-image-resize';
-import { PickerPlugin } from 'roosterjs-plugin-picker';
 import {
+    ContentEdit,
     HyperLink,
     Paste,
-    ContentEdit,
-    Watermark,
     TableResize,
+    Watermark,
+    CustomReplace,
+    ImageResize,
+    PickerPlugin,
     EntityPlugin,
 } from 'roosterjs-editor-plugins';
 
