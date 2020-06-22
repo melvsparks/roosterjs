@@ -53,7 +53,7 @@ export interface CorePlugins {
     readonly firefoxTypeAfterLink: FirefoxTypeAfterLink;
 
     /**
-     * Copy plugin for handling dark mode copy.
+     * Copy plguin for handling dark mode copy.
      */
     readonly copyPlugin: CopyPlugin;
 }

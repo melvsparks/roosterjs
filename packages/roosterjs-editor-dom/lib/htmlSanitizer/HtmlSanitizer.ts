@@ -3,8 +3,8 @@ import htmlToDom from './htmlToDom';
 import isHTMLElement from '../typeUtils/isHTMLElement';
 import { cloneObject } from './cloneObject';
 import {
-    getAllowedAttributes,
     getAllowedTags,
+    getAllowedAttributes,
     getDefaultStyleValues,
     getStyleCallbacks,
     getAllowedCssClassesRegex,
@@ -260,7 +260,7 @@ export default class HtmlSanitizer {
                 : null;
 
             if (name == 'class' && this.allowedCssClassesRegex) {
-                newValue = this.processClass(value, newValue);
+                newValue = this.processCssClass(value, newValue);
             }
 
             if (
@@ -275,7 +275,7 @@ export default class HtmlSanitizer {
         }
     }
 
-    private processClass(originalValue: string, calculatedValue: string): string {
+    private processCssClass(originalValue: string, calculatedValue: string): string {
         const originalClasses = originalValue ? originalValue.split(' ') : [];
         const calculatedClasses = calculatedValue ? calculatedValue.split(' ') : [];
 

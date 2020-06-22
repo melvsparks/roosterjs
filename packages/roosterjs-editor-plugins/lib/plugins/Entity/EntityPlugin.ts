@@ -79,7 +79,7 @@ export default class EntityPlugin implements EditorPlugin {
                 this.handleContentChangedEvent(true /*resetAll*/);
                 break;
             case PluginEventType.ExtractContentWithDom:
-                this.handleExtractContentWithDomEvent(event.clonedFragment);
+                this.handleExtractContentWithDomEvent(event.clonedRoot);
                 break;
         }
     }
@@ -181,8 +181,8 @@ export default class EntityPlugin implements EditorPlugin {
         });
     }
 
-    private handleExtractContentWithDomEvent(fragment: DocumentFragment) {
-        toArray(fragment.querySelectorAll(getEntitySelector())).forEach(element => {
+    private handleExtractContentWithDomEvent(root: HTMLElement) {
+        toArray(root.querySelectorAll(getEntitySelector())).forEach(element => {
             element.removeAttribute('contentEditable');
 
             tryTriggerEntityEvent(

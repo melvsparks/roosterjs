@@ -30,7 +30,6 @@ export default interface HtmlSanitizerOptions {
     additionalAllowedTags?: string[];
 
     /**
-     * @deprecated
      * Allowed HTML attributes in addition to default attributes, in lower case
      * TODO: rename to "additionalAllowedAttributes" in next major release
      */

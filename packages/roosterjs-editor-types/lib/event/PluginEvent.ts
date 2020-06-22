@@ -15,11 +15,11 @@ import { PluginDomEvent } from './PluginDomEvent';
 export type PluginEvent =
     | BeforePasteEvent
     | ContentChangedEvent
+    | EntityOperationEvent
     | ExtractContentEvent
     | ExtractContentWithDomEvent
     | PluginDomEvent
     | EditorReadyEvent
     | BeforeDisposeEvent
     | PendingFormatStateChangedEvent
-    | DarkModeChangedEvent
-    | EntityOperationEvent;
+    | DarkModeChangedEvent;

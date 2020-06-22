@@ -38,9 +38,13 @@ export default class CopyPlugin implements EditorPlugin {
         this.editor = null;
     }
 
-    onPluginEvent(event: PluginEvent) {
+    /**
+     * Handle plugin events
+     * @param event The event to handle
+     */
+    public onPluginEvent(event: PluginEvent) {
         if (event.eventType == PluginEventType.ExtractContentWithDom) {
-            normalizeContentColor(event.clonedFragment);
+            normalizeContentColor(event.clonedRoot);
         }
     }
 
@@ -53,18 +57,18 @@ export default class CopyPlugin implements EditorPlugin {
                 const clipboardEvent = event as ClipboardEvent;
                 const copyFragment = this.editor.getSelectionRange().cloneContents();
 
-                // revert just this selected range to light mode colors
-                normalizeContentColor(copyFragment);
-
-                const root = this.editor.getDocument().createElement('div');
+                const containerDiv = this.editor.getDocument().createElement('div');
 
                 // Leverage script execution policy on CEDs to try and prevent XSS
-                root.contentEditable = 'true';
-                root.appendChild(copyFragment);
+                containerDiv.contentEditable = 'true';
+                containerDiv.appendChild(copyFragment);
+
+                // revert just this selected range to light mode colors
+                normalizeContentColor(containerDiv);
 
                 // put it on the clipboard
-                clipboardEvent.clipboardData.setData('text/html', root.innerHTML);
-                clipboardEvent.clipboardData.setData('text/plain', root.innerText);
+                clipboardEvent.clipboardData.setData('text/html', containerDiv.innerHTML);
+                clipboardEvent.clipboardData.setData('text/plain', containerDiv.innerText);
 
                 // if it's cut, delete the contents
                 if (isCut) {

@@ -344,7 +344,8 @@ export default class Editor {
      * @param triggerExtractContentEvent Whether trigger ExtractContent event to all plugins
      * before return. Use this parameter to remove any temporary content added by plugins.
      * @param includeSelectionMarker Set to true if need include selection marker inside the content.
-     * When restore this content, editor will set the selection to the position marked by these markers
+     * When restore this content, editor will set the selection to the position marked by these markers.
+     * This parameter will be ignored when triggerExtractContentEvent is set to true
      * @returns HTML string representing current editor content
      */
     public getContent(
@@ -353,36 +354,31 @@ export default class Editor {
     ): string {
         let content = '';
         if (triggerExtractContentEvent || this.core.inDarkMode) {
-            const fragment = this.core.document.createDocumentFragment();
-            for (let child = this.core.contentDiv.firstChild; child; child = child.nextSibling) {
-                fragment.appendChild(child.cloneNode(true /*deep*/));
+            const clonedRoot = this.core.contentDiv.cloneNode(true /*deep*/) as HTMLElement;
+
+            this.triggerPluginEvent(
+                PluginEventType.ExtractContentWithDom,
+                {
+                    clonedRoot,
+                },
+                true /*broadcast*/
+            );
+
+            content = clonedRoot.innerHTML;
+
+            // TODO: Deprecated ExtractContentEvent once we have entity API ready in next major release
+            if (triggerExtractContentEvent) {
+                content = this.triggerPluginEvent(
+                    PluginEventType.ExtractContent,
+                    { content },
+                    true /*broadcast*/
+                ).content;
             }
-
-            this.triggerEvent({
-                eventType: PluginEventType.ExtractContentWithDom,
-                clonedFragment: fragment,
-            });
-
-            const root = this.core.document.createElement('div');
-
-            // Leverage script execution policy on CEDs to try and prevent XSS
-            root.contentEditable = 'true';
-            root.appendChild(fragment);
-            content = root.innerHTML;
         } else {
             content = getHtmlWithSelectionPath(
                 this.core.contentDiv,
                 includeSelectionMarker && this.getSelectionRange()
             );
-        }
-
-        // TODO: Deprecated ExtractContentEvent once we have entity API ready in next major release
-        if (triggerExtractContentEvent) {
-            content = this.triggerPluginEvent(
-                PluginEventType.ExtractContent,
-                { content },
-                true /*broadcast*/
-            ).content;
         }
 
         return content;

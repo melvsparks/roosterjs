@@ -6,7 +6,7 @@ const SELECTOR = DARKMODE_DATASET_NAMES.map(name => `[data-${name}]`).join(',');
 /**
  * @internal
  */
-export default function normalizeContentColor(root: DocumentFragment) {
+export default function normalizeContentColor(root: HTMLElement) {
     toArray(root.querySelectorAll(SELECTOR)).forEach(e => {
         const element = e as HTMLElement;
         if (element.dataset) {
