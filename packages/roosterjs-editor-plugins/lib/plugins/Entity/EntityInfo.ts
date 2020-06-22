@@ -22,9 +22,9 @@ export function serializeEntityInfo(
     type: string,
     isReadonly: boolean,
     originalId?: string,
-    knownIds?: string[]
+    knownIds: string[] = getAllEntityIds(editor)
 ): string {
-    const id = createEntityId(editor, originalId || type, knownIds);
+    const id = createEntityId(originalId || type, knownIds);
     return `${ENTITY_INFO_NAME} ${ENTITY_TYPE_PREFIX}${type} ${ENTITY_ID_PREFIX}${id} ${ENTITY_READONLY_PREFIX}${
         isReadonly ? '1' : '0'
     }`;
@@ -86,11 +86,7 @@ export function getEntitySelector(type?: string, id?: string): string {
     return '.' + ENTITY_INFO_NAME + typeSelector + idSelector;
 }
 
-function createEntityId(
-    editor: Editor,
-    existingIdOrType: string,
-    knownIds: string[] = getAllEntityIds(editor)
-) {
+function createEntityId(existingIdOrType: string, knownIds: string[]) {
     const match = ENTITY_ID_REGEX.exec(existingIdOrType);
     const baseId = match
         ? existingIdOrType.substr(0, existingIdOrType.length - match[0].length)
