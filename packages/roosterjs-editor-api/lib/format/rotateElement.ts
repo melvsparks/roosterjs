@@ -25,10 +25,7 @@ export default function rotateElement(editor: Editor, element: HTMLElement, angl
             }
 
             const context = canvas.getContext("2d");
-            context.drawImage(image, canvas.width / 2 - image.width / 2, canvas.height / 2 - image.height / 2);
-
             rotateWithinCanvas(image, context, canvas, angle);
-            image.setAttribute("src", canvas.toDataURL('image/png', 1.0));
         }, ChangeSource.Format);
     }
 }
@@ -36,7 +33,7 @@ export default function rotateElement(editor: Editor, element: HTMLElement, angl
 function rotateWithinCanvas(image: HTMLImageElement, context: CanvasRenderingContext2D, canvas: HTMLCanvasElement, angle: number) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
-    context.translate(canvas.width / 2, canvas.height / 2);
+    context.translate(image.width / 2, image.height / 2);
     context.rotate(angle * Math.PI / 180);
     context.drawImage(image, -image.width / 2, -image.height / 2);
     context.restore();

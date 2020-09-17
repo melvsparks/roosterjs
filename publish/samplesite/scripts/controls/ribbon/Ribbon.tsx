@@ -16,6 +16,13 @@ export interface RibbonProps {
 }
 
 export default class Ribbon extends React.Component<RibbonProps, {}> {
+    private rotationValue = 0;
+
+    constructor(props: RibbonProps) {
+        super(props);
+        this.rotationValue = 0;
+    }
+
     render() {
         let plugin = this.props.plugin;
         let editor = plugin.getEditor();
@@ -51,10 +58,11 @@ export default class Ribbon extends React.Component<RibbonProps, {}> {
     }
 
     private onRotateImage = () => {
+        this.rotationValue = this.rotationValue + 45;
         const editor = this.props.plugin.getEditor();
         const images = editor.queryElements('img', QueryScope.InSelection);
         if (images.length > 0) {
-            rotateElement(editor, images[0] as HTMLImageElement, 45);
+            rotateElement(editor, images[0] as HTMLImageElement, this.rotationValue);
         }
     };
 
