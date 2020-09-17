@@ -10,7 +10,34 @@ import { Editor } from 'roosterjs-editor-core';
 export default function rotateElement(editor: Editor, element: HTMLElement, angle: number): void {
     if (element) {
         editor.addUndoSnapshot(() => {
-            element.style.transform = `rotate(${angle}deg)`;
+            let canvas = <HTMLCanvasElement>editor.getDocument().getElementById('rotateImageCanvas');
+            const image = <HTMLImageElement>element; // TODO: change name of api
+
+            if (!canvas) {
+                canvas = editor.getDocument().createElement("canvas");
+                const imageParent = image.parentElement;
+                canvas.appendChild(image);
+                imageParent.appendChild(canvas);
+                canvas.id = "rotateImageCanvas";
+                const maxWidth = Math.sqrt(Math.pow(image.width, 2) + Math.pow(image.height, 2));
+                canvas.width = maxWidth;
+                canvas.height = maxWidth;
+            }
+
+            const context = canvas.getContext("2d");
+            context.drawImage(image, canvas.width / 2 - image.width / 2, canvas.height / 2 - image.height / 2);
+
+            rotateWithinCanvas(image, context, canvas, angle);
+            image.setAttribute("src", canvas.toDataURL('image/png', 1.0));
         }, ChangeSource.Format);
     }
+}
+
+function rotateWithinCanvas(image: HTMLImageElement, context: CanvasRenderingContext2D, canvas: HTMLCanvasElement, angle: number) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.save();
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.rotate(angle * Math.PI / 180);
+    context.drawImage(image, -image.width / 2, -image.height / 2);
+    context.restore();
 }
